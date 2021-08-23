@@ -3,18 +3,16 @@ import requests
 import json
 from collections import Counter
 import re
+import config
 
 
 def analyze_tweet(id):
   # tweet id
   id = id
 
-  bearer_token = "AAAAAAAAAAAAAAAAAAAAAOkTMQEAAAAAr0vLISa%2FPZvh2TCZKFfAIEZpRJE%3DXuRizopCAJEwT03AWS9eovrujibK07G4kE78vAJbmSs0PzmuPg"
-
   url = f"https://api.twitter.com/2/tweets/search/recent?query=conversation_id:{id}&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id&max_results=100"
 
-  # need to variabilize bearer token
-  headers = {"Content-Type": "application/json", "Authorization": "Bearer AAAAAAAAAAAAAAAAAAAAAOkTMQEAAAAAr0vLISa%2FPZvh2TCZKFfAIEZpRJE%3DXuRizopCAJEwT03AWS9eovrujibK07G4kE78vAJbmSs0PzmuPg"}
+  headers = {"Content-Type": "application/json", "Authorization": f"Bearer {config.bearer_token}"}
 
   r = requests.get(url = url, headers = headers)
   response = r.json()
